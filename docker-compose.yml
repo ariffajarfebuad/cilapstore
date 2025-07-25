@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: cilapstore-backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - NODE_ENV=development
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: cilapstore-frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+    environment:
+      - NODE_ENV=development
+    restart: unless-stopped
+    depends_on:
+      - backend
